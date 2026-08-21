@@ -1,0 +1,57 @@
+from tkinter import *
+import os  # CORRECCIÓN 1: Se importa 'os' para que funcione os.path
+
+raiz = Tk()
+raiz.title("Formulario de Datos")
+
+ancho = 600
+alto = 350
+
+# CENTRAR LA VENTANA EN LA PANTALLA
+ancho_pantalla = raiz.winfo_screenwidth()
+alto_pantalla = raiz.winfo_screenheight()
+
+posicion_x = int((ancho_pantalla - ancho) / 2)
+posicion_y = int((alto_pantalla - alto) / 2)
+
+raiz.geometry(f"{ancho}x{alto}+{posicion_x}+{posicion_y}")
+
+# =====================================================
+# frame
+carpeta_actual = os.path.dirname(__file__)
+
+
+ruta_completa_imagen = os.path.join(carpeta_actual, "interface_grafica.png")
+
+icono = PhotoImage(file=ruta_completa_imagen)
+raiz.wm_iconphoto(False, icono)
+miFrame = Frame(raiz, width=500, height=250)
+miFrame.pack(padx=20, pady=30)
+
+titulo = Label(miFrame, text="FORMULARIO DE DATOS PERSONALES", font=("Arial", 18, "bold"))
+titulo.grid(row=0, column=0, columnspan=2, pady=(0, 25))
+
+# CORRECCIÓN 2: Se agregó 'miFrame' como primer argumento para que herede del contenedor
+nombreLabel = Label(miFrame, text="NOMBRE:", font=("Arial", 11))
+nombreLabel.grid(row=1, column=0, padx=10, pady=10, sticky="e")  # CORRECCIÓN 2.1: Se agregó 'column=0'
+
+cuadroNombre = Entry(miFrame, width=30)
+cuadroNombre.grid(row=1, column=1, padx=10, pady=10)
+
+apellidoLabel = Label(miFrame, text="Apellido: ", font=("Arial", 11))
+apellidoLabel.grid(row=2, column=0, padx=10, pady=10, sticky="e")
+
+cuadroApellido = Entry(miFrame, width=30)
+cuadroApellido.grid(row=2, column=1, padx=10, pady=10)
+
+# CORRECCIÓN 3: Se agregó 'miFrame' y se especificó 'column=0' para alinear correctamente con grid
+direccionLabel = Label(miFrame, text="Direccion: ", font=("Arial", 11))
+direccionLabel.grid(row=3, column=0, padx=10, pady=10, sticky="e")
+
+cuadroDireccion = Entry(miFrame, width=30)
+cuadroDireccion.grid(row=3, column=1, padx=10, pady=10)
+
+botonGuardar = Button(miFrame, text="Guardar", width=15)
+botonGuardar.grid(row=4, column=0, columnspan=2, pady=20)
+
+raiz.mainloop()
